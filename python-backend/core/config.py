@@ -27,11 +27,12 @@ class GeminiConfig:
     """Centralized Gemini configuration."""
 
     # Model per service (can be overridden via env)
-    # Using gemini-3-flash-preview for all services (best structured output support)
+    # Context defaults to a stable, low-cost model that supports URL Context.
+    # Other services keep their existing model until they are migrated separately.
     MODEL_MAP: Dict[ServiceType, str] = {
         ServiceType.KEYWORDS: os.getenv("GEMINI_MODEL_KEYWORDS", "gemini-3-flash-preview"),
         ServiceType.BLOG: os.getenv("GEMINI_MODEL_BLOG", "gemini-3-flash-preview"),
-        ServiceType.CONTEXT: os.getenv("GEMINI_MODEL_CONTEXT", "gemini-3-flash-preview"),
+        ServiceType.CONTEXT: os.getenv("GEMINI_MODEL_CONTEXT", "gemini-3.1-flash-lite"),
         ServiceType.MENTIONS: os.getenv("GEMINI_MODEL_MENTIONS", "gemini-3-flash-preview"),
     }
 

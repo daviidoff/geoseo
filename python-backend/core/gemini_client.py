@@ -455,7 +455,16 @@ class GeminiClient:
                 if response.text is None or response.text.strip() == '':
                     raise ValueError("Gemini API returned empty response - temporarily unavailable")
 
-                result = self._parse_json(response.text.strip())
+                # The SDK already parses schema-constrained responses. Prefer that
+                # representation so valid structured output is not damaged by the
+                # legacy best-effort text repair logic.
+                parsed = getattr(response, "parsed", None)
+                if isinstance(parsed, dict):
+                    result = parsed
+                elif parsed is not None and hasattr(parsed, "model_dump"):
+                    result = parsed.model_dump()
+                else:
+                    result = self._parse_json(response.text.strip())
 
                 if extract_sources and use_google_search:
                     grounding_sources = await self._extract_grounding_sources(response)
