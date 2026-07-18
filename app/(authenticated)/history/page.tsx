@@ -13,16 +13,25 @@ import { downloadXLSX } from '@/lib/export'
 
 interface HealthResult {
   overall_score: number
-  category_scores: {
-    technical_seo: number
-    structured_data: number
-    ai_crawler_readiness: number
-    authority_signals: number
-  }
+  score?: number
+  grade?: string
+  visibility_band?: string
+  category_scores?: Record<string, number>
+  tier_details?: Record<string, {
+    score?: number
+    total?: number
+    passed?: boolean
+    cap?: number
+    reason?: string
+  }>
   checks: Array<{
-    name: string
+    name?: string
+    check?: string
+    category?: string
     status: 'pass' | 'fail' | 'warning'
-    score: number
+    score?: number
+    message?: string
+    recommendation?: string
   }>
 }
 
@@ -205,12 +214,20 @@ function HistoryDetails({ log }: { log: LogEntry }) {
     const health = payload.healthResult as HealthResult | undefined
     const mentions = payload.mentionsResult as MentionsResult | undefined
     const mentionCount = mentions?.total_mentions ?? mentions?.mentions ?? 0
+    const healthScore = health?.overall_score ?? health?.score ?? 0
 
     return (
       <div className="space-y-5">
         {health && (
           <section className="rounded-md border border-border/50 bg-background p-4">
-            <h4 className="font-semibold">Website health: {health.overall_score}/100</h4>
+            <h4 className="font-semibold">Website health: {healthScore}/100</h4>
+            {(health.grade || health.visibility_band) && (
+              <p className="mt-1 text-sm text-muted-foreground">
+                {health.grade ? `Grade ${health.grade}` : ''}
+                {health.grade && health.visibility_band ? ' · ' : ''}
+                {health.visibility_band || ''}
+              </p>
+            )}
             <div className="mt-3 grid gap-2 sm:grid-cols-2 lg:grid-cols-4">
               {Object.entries(health.category_scores || {}).map(([key, value]) => (
                 <div key={key} className="rounded bg-muted/60 p-3">
@@ -218,13 +235,32 @@ function HistoryDetails({ log }: { log: LogEntry }) {
                   <p className="mt-1 font-semibold">{value}/100</p>
                 </div>
               ))}
+              {Object.entries(health.tier_details || {}).map(([key, value]) => (
+                <div key={key} className="rounded bg-muted/60 p-3">
+                  <p className="text-xs text-muted-foreground">{detailLabel(key)}</p>
+                  <p className="mt-1 font-semibold">
+                    {value.score !== undefined
+                      ? `${value.score}/${value.total ?? 100}`
+                      : value.passed !== undefined
+                        ? (value.passed ? 'Passed' : 'Failed')
+                        : 'Recorded'}
+                  </p>
+                </div>
+              ))}
             </div>
             {Array.isArray(health.checks) && health.checks.length > 0 && (
               <div className="mt-4 max-h-72 overflow-auto divide-y divide-border/50 border-t border-border/50">
                 {health.checks.map((check, index) => (
-                  <div key={`${check.name}-${index}`} className="flex items-center justify-between gap-4 py-2 text-sm">
-                    <span>{check.name}</span>
-                    <span className="text-muted-foreground">{check.status} · {check.score}</span>
+                  <div key={`${check.name || check.check || 'check'}-${index}`} className="flex items-start justify-between gap-4 py-2 text-sm">
+                    <div>
+                      <p className="font-medium">{check.name || check.check || check.message || 'Health check'}</p>
+                      {check.message && (check.name || check.check) && (
+                        <p className="mt-0.5 text-xs text-muted-foreground">{check.message}</p>
+                      )}
+                    </div>
+                    <span className="shrink-0 text-muted-foreground">
+                      {check.status}{check.score !== undefined ? ` · ${check.score}` : ''}
+                    </span>
                   </div>
                 ))}
               </div>
