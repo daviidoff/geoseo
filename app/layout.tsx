@@ -8,8 +8,8 @@ import { CookieConsent } from '@/components/ui/cookie-consent'
 
 export const metadata: Metadata = {
   title: {
-    default: 'GeoSEO — AI Search Visibility',
-    template: '%s | GeoSEO',
+    default: 'HyperNiche AI — Dominate Your Niche in AI Search',
+    template: '%s | HyperNiche AI',
   },
   description: 'Dominate your niche in AI search. Rank in ChatGPT, Perplexity & Claude. AEO-optimized content in minutes, no technical skills needed.',
   keywords: ['AEO', 'Answer Engine Optimization', 'AI visibility', 'AI search', 'ChatGPT SEO', 'Perplexity optimization', 'AI content strategy', 'keyword research'],
@@ -29,21 +29,21 @@ export const metadata: Metadata = {
     type: 'website',
     locale: 'en_US',
     url: '/',
-    siteName: 'GeoSEO',
-    title: 'GeoSEO — AI Search Visibility',
+    siteName: 'HyperNiche AI',
+    title: 'HyperNiche AI — Dominate Your Niche in AI Search',
     description: 'Dominate your niche in AI search. Rank in ChatGPT, Perplexity & Claude. Set up in 5 minutes.',
     images: [
       {
         url: '/og-image.svg',
         width: 1200,
         height: 630,
-        alt: 'GeoSEO — AI Search Visibility',
+        alt: 'HyperNiche AI — Dominate Your Niche in AI Search',
       },
     ],
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'GeoSEO — AI Search Visibility',
+    title: 'HyperNiche AI — Dominate Your Niche in AI Search',
     description: 'Dominate your niche in AI search. Rank in ChatGPT, Perplexity & Claude. Set up in 5 minutes.',
     images: ['/og-image.svg'],
     creator: '@scailetech',

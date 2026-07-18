@@ -1,5 +1,5 @@
 /**
- * ABOUTME: Pricing page component for GeoSEO
+ * ABOUTME: Pricing page component for hyperniche.ai
  * ABOUTME: Simple usage-based tiers - Free, Pro, Business (supports waitlist mode)
  */
 
@@ -73,7 +73,7 @@ export default function PricingPage() {
 
     if (planType === 'business') {
       // Open email for business inquiries
-      window.location.href = 'mailto:hello@scaile.tech?subject=Business%20Plan%20Inquiry'
+      window.location.href = 'mailto:hello@hyperniche.ai?subject=Business%20Plan%20Inquiry'
       return
     }
 
@@ -325,7 +325,7 @@ export default function PricingPage() {
                 </h3>
                 <p className="text-muted-foreground text-sm">
                   The Free plan lets you try all features with limited usage. This way you can fully
-                  evaluate GeoSEO before committing to a paid plan.
+                  evaluate HyperNiche before committing to a paid plan.
                 </p>
               </div>
 

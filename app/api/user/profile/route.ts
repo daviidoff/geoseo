@@ -8,7 +8,7 @@ import { NextRequest, NextResponse } from 'next/server'
 // Demo profile data when Supabase not configured
 const DEMO_PROFILE = {
   user_id: 'demo-user',
-  email: 'demo@geoseo.local',
+  email: 'demo@hyperniche.ai',
   full_name: 'Demo User',
   organization: 'Demo Organization',
   user_type: 'self_service',

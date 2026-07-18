@@ -37,10 +37,10 @@ const STAGE_CONFIGURATIONS = {
     substeps: ['Loading company info', 'Validating inputs'],
   },
   query_generation: {
-    name: '🎯 Targeted Queries',
+    name: '🎯 Hyperniche Queries',
     duration: 5,
     icon: '🎯',
-    description: 'Generating targeted queries (70/20/10)',
+    description: 'Generating hyperniche queries (70/20/10)',
     color: 'text-purple-600',
     substeps: ['Unbranded queries', 'Competitive queries', 'Branded queries'],
   },

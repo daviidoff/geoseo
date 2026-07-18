@@ -1,6 +1,6 @@
 /**
  * ABOUTME: Terms of Service page
- * ABOUTME: Legal terms for using GeoSEO
+ * ABOUTME: Legal terms for using hyperniche.ai
  */
 
 import { Metadata } from 'next'
@@ -8,8 +8,8 @@ import { Navbar } from '@/components/landing/sections/navbar'
 import { FooterSection } from '@/components/landing/sections/footer'
 
 export const metadata: Metadata = {
-  title: 'Terms of Service | GeoSEO',
-  description: 'Terms of Service for GeoSEO',
+  title: 'Terms of Service | hyperniche.ai',
+  description: 'Terms of Service for hyperniche.ai',
 }
 
 export default function TermsPage() {
@@ -28,7 +28,7 @@ export default function TermsPage() {
             <section className="space-y-4">
               <h2 className="text-xl font-semibold">1. Acceptance of Terms</h2>
               <p className="text-muted-foreground">
-                By accessing or using GeoSEO (&quot;Service&quot;), you agree to be bound by these Terms of Service.
+                By accessing or using hyperniche.ai (&quot;Service&quot;), you agree to be bound by these Terms of Service.
                 If you do not agree to these terms, please do not use the Service.
               </p>
             </section>
@@ -36,7 +36,7 @@ export default function TermsPage() {
             <section className="space-y-4">
               <h2 className="text-xl font-semibold">2. Description of Service</h2>
               <p className="text-muted-foreground">
-                GeoSEO provides AI-powered Answer Engine Optimization (AEO) tools including keyword research,
+                hyperniche.ai provides AI-powered Answer Engine Optimization (AEO) tools including keyword research,
                 content generation, and company analysis. The Service uses third-party AI models to process your requests.
               </p>
             </section>
@@ -115,7 +115,7 @@ export default function TermsPage() {
             <section className="space-y-4">
               <h2 className="text-xl font-semibold">11. Contact</h2>
               <p className="text-muted-foreground">
-                For questions about these Terms, please contact us at hello@scaile.tech
+                For questions about these Terms, please contact us at legal@hyperniche.ai
               </p>
             </section>
           </div>
