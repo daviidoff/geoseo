@@ -206,8 +206,12 @@ class GeminiClient:
                     'connection', 'timeout', 'resource exhausted'
                 ])
 
-                # Also retry JSON decode errors - Gemini sometimes returns malformed JSON
-                is_json_error = isinstance(e, (json.JSONDecodeError, ValueError)) and 'json' in error_str
+                # Gemini occasionally returns malformed schema output. JSONDecodeError
+                # messages do not contain the word "json", so detect the exception
+                # type directly instead of relying only on its message.
+                is_json_error = isinstance(e, json.JSONDecodeError) or (
+                    isinstance(e, ValueError) and 'json' in error_str
+                )
 
                 if not (is_retryable or is_json_error) or attempt >= self.max_retries:
                     logger.error(f"Gemini generation failed: {e}")
@@ -485,8 +489,12 @@ class GeminiClient:
                     'connection', 'timeout', 'resource exhausted'
                 ])
 
-                # Also retry JSON decode errors - Gemini sometimes returns malformed JSON
-                is_json_error = isinstance(e, (json.JSONDecodeError, ValueError)) and 'json' in error_str
+                # Gemini occasionally returns malformed schema output. JSONDecodeError
+                # messages do not contain the word "json", so detect the exception
+                # type directly instead of relying only on its message.
+                is_json_error = isinstance(e, json.JSONDecodeError) or (
+                    isinstance(e, ValueError) and 'json' in error_str
+                )
 
                 if not (is_retryable or is_json_error) or attempt >= self.max_retries:
                     raise
