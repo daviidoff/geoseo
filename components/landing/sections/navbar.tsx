@@ -1,4 +1,4 @@
-// ABOUTME: Sticky navbar for HyperNiche AI landing page
+// ABOUTME: Sticky navbar for the GeoSEO landing page
 // ABOUTME: Logo, nav links, and auth-aware CTA (supports waitlist mode)
 
 "use client";
@@ -52,16 +52,15 @@ export function Navbar() {
     <header className="sticky top-0 z-50 w-full border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
       <nav className="mx-auto flex h-14 max-w-6xl items-center justify-between px-4 md:px-6" aria-label="Main navigation">
         {/* Logo */}
-        <Link href="/" className="flex items-center gap-2 font-bold text-lg" aria-label="HyperNiche AI - Go to homepage">
+        <Link href="/" className="flex items-center gap-2 font-bold text-lg" aria-label="GeoSEO - Go to homepage">
           <Image
             src="/logo.svg"
-            alt="HyperNiche AI"
+            alt="GeoSEO"
             width={32}
             height={32}
             priority
           />
-          <span className="bg-gradient-to-r from-purple-500 via-indigo-500 to-blue-500 bg-clip-text text-transparent">HyperNiche</span>
-          <span className="font-medium text-foreground">AI</span>
+          <span className="bg-gradient-to-r from-purple-500 via-indigo-500 to-blue-500 bg-clip-text text-transparent">GeoSEO</span>
         </Link>
 
         {/* Desktop Nav */}
@@ -161,4 +160,3 @@ export function Navbar() {
     </header>
   );
 }
-

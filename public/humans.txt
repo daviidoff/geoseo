@@ -1,6 +1,6 @@
 /* TEAM */
-Product: HyperNiche AI
-Site: https://hyperniche.ai
+Product: GeoSEO
+Site: https://geoseo-web-production.up.railway.app
 Location: Remote
 
 /* TECH */

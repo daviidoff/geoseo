@@ -45,7 +45,7 @@ export function FAQSection() {
             Frequently Asked Questions
           </h2>
           <p className="mb-16 text-lg text-muted-foreground">
-            Everything you need to know about HyperNiche AI
+            Everything you need to know about GeoSEO
           </p>
         </div>
 
@@ -86,4 +86,3 @@ export function FAQSection() {
     </section>
   );
 }
-

@@ -1,6 +1,6 @@
 /**
  * ABOUTME: Privacy Policy page
- * ABOUTME: Privacy practices for hyperniche.ai
+ * ABOUTME: Privacy practices for GeoSEO
  */
 
 import { Metadata } from 'next'
@@ -8,8 +8,8 @@ import { Navbar } from '@/components/landing/sections/navbar'
 import { FooterSection } from '@/components/landing/sections/footer'
 
 export const metadata: Metadata = {
-  title: 'Privacy Policy | hyperniche.ai',
-  description: 'Privacy Policy for hyperniche.ai',
+  title: 'Privacy Policy | GeoSEO',
+  description: 'Privacy Policy for GeoSEO',
 }
 
 export default function PrivacyPage() {
@@ -28,7 +28,7 @@ export default function PrivacyPage() {
             <section className="space-y-4">
               <h2 className="text-xl font-semibold">1. Introduction</h2>
               <p className="text-muted-foreground">
-                hyperniche.ai (&quot;we&quot;, &quot;our&quot;, &quot;us&quot;) is committed to protecting your privacy.
+                GeoSEO (&quot;we&quot;, &quot;our&quot;, &quot;us&quot;) is committed to protecting your privacy.
                 This Privacy Policy explains how we collect, use, and share information about you when you use our Service.
               </p>
             </section>
@@ -151,7 +151,7 @@ export default function PrivacyPage() {
             <section className="space-y-4">
               <h2 className="text-xl font-semibold">13. Contact Us</h2>
               <p className="text-muted-foreground">
-                For questions about this Privacy Policy, please contact us at privacy@hyperniche.ai
+                For questions about this Privacy Policy, please contact us at hello@scaile.tech
               </p>
             </section>
           </div>

@@ -1,11 +1,11 @@
-// ABOUTME: Differentiation section - Why Hyperniche AI vs alternatives
+// ABOUTME: Differentiation section - Why GeoSEO vs alternatives
 // ABOUTME: Addresses "why not just use ChatGPT/SEO tools?"
 
 const comparisons = [
   {
     alternative: "Generic SEO Tools",
     problem: "Focus on broad keywords everyone targets",
-    solution: "Hyperniche AI finds ultra-specific keywords from real user discussions (Reddit, Quora, forums)",
+    solution: "GeoSEO finds ultra-specific keywords from real user discussions (Reddit, Quora, forums)",
     icon: "🎯",
   },
   {
@@ -16,8 +16,8 @@ const comparisons = [
   },
   {
     alternative: "Hiring Copywriters",
-    problem: "Expensive, slow, don't understand AEO or hyperniche positioning",
-    solution: "Generate 50 hyperniche keywords + blogs in minutes, not weeks. Built specifically for AI search engines.",
+    problem: "Expensive, slow, and often lack AEO expertise",
+    solution: "Generate 50 targeted keywords and blogs in minutes, not weeks. Built specifically for AI search engines.",
     icon: "⚡",
   },
 ];
@@ -28,10 +28,10 @@ export function DifferentiationSection() {
       <div className="container mx-auto px-4">
         <div className="mx-auto max-w-3xl text-center mb-12">
           <h2 className="mb-4 text-3xl font-bold md:text-4xl">
-            Why Hyperniche AI?
+            Why GeoSEO?
           </h2>
           <p className="text-lg text-muted-foreground">
-            Built specifically for hyperniche positioning and AEO, not generic SEO
+            Built specifically for focused positioning and AEO, not generic SEO
           </p>
         </div>
 
@@ -74,4 +74,3 @@ export function DifferentiationSection() {
     </section>
   );
 }
-

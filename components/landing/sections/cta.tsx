@@ -15,7 +15,7 @@ export function CTASection() {
           <div className="mb-4 flex justify-center">
             <Image
               src="/logo.svg"
-              alt="HyperNiche AI"
+              alt="GeoSEO"
               width={48}
               height={48}
             />
@@ -41,4 +41,3 @@ export function CTASection() {
     </section>
   );
 }
-

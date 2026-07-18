@@ -143,7 +143,7 @@ export function AppPreviewSection() {
       <div className="container mx-auto px-4">
         <div className="text-center mb-12">
           <h2 className="text-2xl md:text-3xl font-bold text-foreground mb-4">
-            See HyperNiche AI in Action
+            See GeoSEO in Action
           </h2>
           <p className="text-muted-foreground max-w-2xl mx-auto">
             Powerful tools that help you dominate AI search. Watch how each feature works.
@@ -192,7 +192,7 @@ export function AppPreviewSection() {
               </div>
               <div className="flex-1 flex justify-center">
                 <div className="bg-background/50 rounded-md px-3 py-1 text-xs text-muted-foreground">
-                  app.hyperniche.ai
+                  internal.geoseo
                 </div>
               </div>
               <div className="flex gap-2">

@@ -8,8 +8,8 @@ import { CookieConsent } from '@/components/ui/cookie-consent'
 
 export const metadata: Metadata = {
   title: {
-    default: 'HyperNiche AI — Dominate Your Niche in AI Search',
-    template: '%s | HyperNiche AI',
+    default: 'GeoSEO — AI Search Visibility',
+    template: '%s | GeoSEO',
   },
   description: 'Dominate your niche in AI search. Rank in ChatGPT, Perplexity & Claude. AEO-optimized content in minutes, no technical skills needed.',
   keywords: ['AEO', 'Answer Engine Optimization', 'AI visibility', 'AI search', 'ChatGPT SEO', 'Perplexity optimization', 'AI content strategy', 'keyword research'],
@@ -29,21 +29,21 @@ export const metadata: Metadata = {
     type: 'website',
     locale: 'en_US',
     url: '/',
-    siteName: 'HyperNiche AI',
-    title: 'HyperNiche AI — Dominate Your Niche in AI Search',
+    siteName: 'GeoSEO',
+    title: 'GeoSEO — AI Search Visibility',
     description: 'Dominate your niche in AI search. Rank in ChatGPT, Perplexity & Claude. Set up in 5 minutes.',
     images: [
       {
         url: '/og-image.svg',
         width: 1200,
         height: 630,
-        alt: 'HyperNiche AI — Dominate Your Niche in AI Search',
+        alt: 'GeoSEO — AI Search Visibility',
       },
     ],
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'HyperNiche AI — Dominate Your Niche in AI Search',
+    title: 'GeoSEO — AI Search Visibility',
     description: 'Dominate your niche in AI search. Rank in ChatGPT, Perplexity & Claude. Set up in 5 minutes.',
     images: ['/og-image.svg'],
     creator: '@scailetech',
@@ -120,4 +120,3 @@ export default function RootLayout({
     </html>
   )
 }
-

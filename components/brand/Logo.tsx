@@ -33,7 +33,7 @@ export function Logo({ className = '', showText = true, size = 'md', href = '/' 
       <div className="group-hover:scale-105 transition-transform">
         <Image
           src="/logo.svg"
-          alt="HyperNiche AI"
+          alt="GeoSEO"
           width={logoSize}
           height={logoSize}
           priority
@@ -43,7 +43,7 @@ export function Logo({ className = '', showText = true, size = 'md', href = '/' 
       {showText && (
         <div className="hidden sm:flex items-center gap-1.5 flex-shrink-0">
           <span className={`font-bold tracking-tight ${textSizeClasses[size]} bg-gradient-to-r from-purple-500 via-indigo-500 to-blue-500 bg-clip-text text-transparent whitespace-nowrap`}>
-            HyperNiche
+            GeoSEO
           </span>
           <span className={`font-medium ${textSizeClasses[size]} text-muted-foreground whitespace-nowrap`}>
             AI
@@ -53,5 +53,4 @@ export function Logo({ className = '', showText = true, size = 'md', href = '/' 
     </Link>
   )
 }
-
 

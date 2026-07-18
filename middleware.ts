@@ -66,6 +66,10 @@ export async function middleware(request: NextRequest) {
   const startTime = Date.now()
   const { pathname } = request.nextUrl
 
+  if (pathname === "/") {
+    return NextResponse.redirect(new URL("/auth", request.url))
+  }
+
   // Skip static assets
   if (isStaticRoute(pathname)) {
     return NextResponse.next()

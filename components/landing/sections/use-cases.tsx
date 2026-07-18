@@ -37,7 +37,7 @@ export function UseCasesSection() {
             Who benefits from AEO?
           </h2>
           <p className="mb-16 text-lg text-muted-foreground">
-            From B2B to e-commerce, HyperNiche AI powers diverse industries
+            From B2B to e-commerce, GeoSEO supports diverse industries
           </p>
         </div>
 
@@ -60,4 +60,3 @@ export function UseCasesSection() {
     </section>
   );
 }
-

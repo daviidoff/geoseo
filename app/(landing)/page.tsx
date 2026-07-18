@@ -1,10 +1,5 @@
-import { Suspense } from 'react'
-import { LandingPage } from '@/components/landing/LandingPage'
+import { redirect } from 'next/navigation'
 
 export default function HomePage() {
-  return (
-    <Suspense>
-      <LandingPage />
-    </Suspense>
-  )
+  redirect('/auth')
 }

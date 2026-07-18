@@ -30,7 +30,7 @@ const competitors = [
     aeoNative: false,
   },
   {
-    name: "HyperNiche",
+    name: "GeoSEO",
     logo: "/logo.svg",
     priceFor30Articles: "$99",
     model: "Flat",

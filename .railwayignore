@@ -1,0 +1,11 @@
+/node_modules/
+/.next/
+/coverage/
+/test-results/
+/playwright-report/
+/python-backend/
+/openanalytics-main/
+/supabase/
+/docs/
+*.log
+*.tsbuildinfo

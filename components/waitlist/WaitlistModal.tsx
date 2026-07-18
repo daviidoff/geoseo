@@ -117,7 +117,7 @@ export function WaitlistModal({ isOpen, onClose, source = 'landing' }: WaitlistM
       ) : (
         <form onSubmit={handleSubmit} className="space-y-4">
           <p className="text-sm text-muted-foreground">
-            Be the first to know when HyperNiche AI launches. Get early access and exclusive benefits.
+            Be the first to know when GeoSEO launches. Get early access and exclusive benefits.
           </p>
 
           <div className="relative">

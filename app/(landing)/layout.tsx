@@ -11,17 +11,17 @@
 import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
-  title: 'Hyperniche AI - AI-Powered Content Generation',
+  title: 'GeoSEO - AI-Powered Content Generation',
   description: 'Generate SEO-optimized keywords and blogs with AI. Create content that ranks.',
   keywords: ['AI content', 'SEO keywords', 'blog generation', 'content marketing', 'AEO'],
   openGraph: {
-    title: 'Hyperniche AI - AI-Powered Content Generation',
+    title: 'GeoSEO - AI-Powered Content Generation',
     description: 'Generate SEO-optimized keywords and blogs with AI',
     type: 'website',
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Hyperniche AI',
+    title: 'GeoSEO',
     description: 'Generate SEO-optimized keywords and blogs with AI',
   },
 }

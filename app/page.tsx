@@ -1,6 +1,5 @@
-import { LandingPage } from '@/components/landing/LandingPage'
+import { redirect } from 'next/navigation'
 
-// Simple landing page for development - always show app context
 export default function HomePage() {
-  return <LandingPage />
+  redirect('/auth')
 }

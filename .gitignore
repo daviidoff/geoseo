@@ -66,6 +66,9 @@ modal-processor/modal_env_new/
 # Auto Claude data directory
 .auto-claude/
 
+# Railway CLI pull cache
+.railway-config-pull-*/
+
 # Python virtual environments
 venv/
 backend/venv/

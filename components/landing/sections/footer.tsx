@@ -1,4 +1,4 @@
-// ABOUTME: Footer section for HyperNiche AI landing page
+// ABOUTME: Footer section for the GeoSEO landing page
 // ABOUTME: Logo, links, and copyright
 
 import Link from "next/link";
@@ -20,12 +20,11 @@ export function FooterSection() {
           <div className="flex items-center gap-2">
             <Image
               src="/logo.svg"
-              alt="HyperNiche AI"
+              alt="GeoSEO"
               width={28}
               height={28}
             />
-            <span className="text-xl font-bold bg-gradient-to-r from-purple-500 via-indigo-500 to-blue-500 bg-clip-text text-transparent">HyperNiche</span>
-            <span className="text-xl font-medium text-foreground">AI</span>
+            <span className="text-xl font-bold bg-gradient-to-r from-purple-500 via-indigo-500 to-blue-500 bg-clip-text text-transparent">GeoSEO</span>
           </div>
 
           {/* Links */}
@@ -43,14 +42,12 @@ export function FooterSection() {
 
           {/* Copyright */}
           <p className="text-sm text-muted-foreground">
-            © {new Date().getFullYear()} HyperNiche AI. All rights reserved.
+            © {new Date().getFullYear()} GeoSEO. All rights reserved.
           </p>
         </div>
       </div>
     </footer>
   );
 }
-
-
 
 

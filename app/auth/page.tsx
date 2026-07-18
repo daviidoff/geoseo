@@ -73,8 +73,7 @@ function AuthPageContent() {
           <div className="lg:hidden relative h-32 overflow-hidden bg-gradient-to-br from-blue-600 via-purple-600 to-pink-500">
             <div className="absolute inset-0 flex flex-col items-center justify-center gap-1">
               <h2 className="text-2xl font-bold tracking-tight">
-                <span className="text-white">HyperNiche</span>
-                <span className="text-white/70">AI</span>
+                <span className="text-white">GeoSEO</span>
               </h2>
               <p className="text-white/90 text-xs font-medium">
                 Dominate your niche in AI search
@@ -110,8 +109,7 @@ function AuthPageContent() {
         <div className="absolute inset-0 flex flex-col items-center justify-center p-12">
           <div className="text-center">
             <h2 className="text-4xl xl:text-5xl font-bold tracking-tight mb-4">
-              <span className="text-white">HyperNiche</span>
-              <span className="text-white/70">AI</span>
+              <span className="text-white">GeoSEO</span>
             </h2>
             <p className="text-white/90 text-xl xl:text-2xl font-medium mb-8">
               Dominate your niche in AI search.
@@ -129,7 +127,7 @@ function AuthPageContent() {
               </div>
               <div className="flex items-center gap-3 text-white/90">
                 <div className="w-5 h-5 rounded-full bg-white/20 flex items-center justify-center text-xs">✓</div>
-                <span>Start free, scale when ready</span>
+                <span>Administrator-managed access</span>
               </div>
             </div>
 
