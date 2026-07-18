@@ -109,6 +109,27 @@ class GeminiClient:
         except ImportError:
             raise ImportError("google-genai not installed. Run: pip install google-genai")
 
+    def _log_finish_reason(self, response: Any, operation: str, attempt: int) -> None:
+        """Log Gemini's candidate finish reason without response content."""
+        try:
+            candidates = getattr(response, "candidates", None) or []
+            reason = getattr(candidates[0], "finish_reason", None) if candidates else None
+            reason_name = (
+                getattr(reason, "name", None)
+                or getattr(reason, "value", None)
+                or str(reason or "unavailable")
+            )
+            logger.info(
+                "Gemini finish_reason: operation=%s model=%s attempt=%d/%d reason=%s",
+                operation,
+                self.model,
+                attempt + 1,
+                self.max_retries + 1,
+                reason_name,
+            )
+        except Exception as log_error:
+            logger.debug("Could not read Gemini finish_reason: %s", log_error)
+
     async def generate(
         self,
         prompt: str,
@@ -174,6 +195,8 @@ class GeminiClient:
                     ),
                     timeout=timeout,
                 )
+
+                self._log_finish_reason(response, "generate", attempt)
 
                 # Handle empty response from Gemini API
                 if response.text is None or response.text.strip() == '':
@@ -454,6 +477,8 @@ class GeminiClient:
                     ),
                     timeout=timeout,
                 )
+
+                self._log_finish_reason(response, "generate_with_schema", attempt)
 
                 # Handle empty response from Gemini API
                 if response.text is None or response.text.strip() == '':
