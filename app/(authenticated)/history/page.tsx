@@ -56,9 +56,182 @@ interface LogEntry {
   payload: any
 }
 
+const detailLabel = (key: string) => key
+  .replace(/([a-z])([A-Z])/g, '$1 $2')
+  .replace(/_/g, ' ')
+  .replace(/^./, char => char.toUpperCase())
+
+const detailValue = (value: unknown) => {
+  if (Array.isArray(value)) return value.join(', ')
+  if (value && typeof value === 'object') return JSON.stringify(value, null, 2)
+  return String(value ?? '')
+}
+
+function HistoryDetails({ log }: { log: LogEntry }) {
+  const payload = log.payload || {}
+
+  if (log.type === 'context') {
+    const fields = [
+      ['language', payload.language],
+      ['country', payload.country],
+      ['products', payload.products],
+      ['competitors', payload.competitors],
+      ['painPoints', payload.painPoints],
+      ['useCases', payload.useCases],
+    ].filter(([, value]) => value !== undefined && value !== null && value !== '')
+
+    return fields.length > 0 ? (
+      <dl className="grid gap-4 sm:grid-cols-2">
+        {fields.map(([key, value]) => (
+          <div key={String(key)} className="rounded-md border border-border/50 bg-background p-3">
+            <dt className="text-xs font-medium uppercase tracking-wide text-muted-foreground">
+              {detailLabel(String(key))}
+            </dt>
+            <dd className="mt-1 whitespace-pre-wrap text-sm text-foreground">{detailValue(value)}</dd>
+          </div>
+        ))}
+      </dl>
+    ) : <p className="text-sm text-muted-foreground">No context details were stored for this run.</p>
+  }
+
+  if (log.type === 'keywords') {
+    const keywords = Array.isArray(payload.keywords) ? payload.keywords : []
+    return keywords.length > 0 ? (
+      <div className="max-h-[28rem] overflow-auto rounded-md border border-border/50 bg-background">
+        <table className="w-full min-w-[760px] text-left text-sm">
+          <thead className="sticky top-0 bg-muted">
+            <tr>
+              <th className="p-3 font-medium">Keyword</th>
+              <th className="p-3 font-medium">AEO type</th>
+              <th className="p-3 font-medium">Intent</th>
+              <th className="p-3 font-medium">Relevance</th>
+              <th className="p-3 font-medium">Competition</th>
+            </tr>
+          </thead>
+          <tbody>
+            {keywords.map((keyword: any, index: number) => (
+              <tr key={`${keyword.keyword || 'keyword'}-${index}`} className="border-t border-border/50">
+                <td className="p-3 font-medium text-foreground">{keyword.keyword || '—'}</td>
+                <td className="p-3 text-muted-foreground">{keyword.aeo_type || '—'}</td>
+                <td className="p-3 text-muted-foreground">{keyword.search_intent || '—'}</td>
+                <td className="p-3 text-muted-foreground">{keyword.relevance_score ?? '—'}</td>
+                <td className="p-3 text-muted-foreground">{keyword.competition_level || '—'}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    ) : <p className="text-sm text-muted-foreground">No keyword results were stored for this run.</p>
+  }
+
+  if (log.type === 'blog' || log.type === 'refresh') {
+    return payload.content ? (
+      <article className="max-h-[36rem] overflow-auto rounded-md border border-border/50 bg-background p-5">
+        <h4 className="text-lg font-semibold">{payload.title || payload.keyword || 'Generated article'}</h4>
+        {payload.keyword && <p className="mt-1 text-xs text-muted-foreground">Keyword: {payload.keyword}</p>}
+        <div className="mt-4 whitespace-pre-wrap text-sm leading-6 text-foreground">{payload.content}</div>
+      </article>
+    ) : <p className="text-sm text-muted-foreground">No article content was stored for this run.</p>
+  }
+
+  if (log.type === 'blog_batch') {
+    const results = Array.isArray(payload.results) ? payload.results : []
+    return results.length > 0 ? (
+      <div className="max-h-[28rem] overflow-auto rounded-md border border-border/50 bg-background">
+        <table className="w-full min-w-[680px] text-left text-sm">
+          <thead className="sticky top-0 bg-muted">
+            <tr>
+              <th className="p-3 font-medium">Keyword</th>
+              <th className="p-3 font-medium">Title</th>
+              <th className="p-3 font-medium">Words</th>
+              <th className="p-3 font-medium">AEO score</th>
+              <th className="p-3 font-medium">Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            {results.map((result: BlogBatchResult, index: number) => (
+              <tr key={`${result.keyword || 'result'}-${index}`} className="border-t border-border/50">
+                <td className="p-3 font-medium text-foreground">{result.keyword || '—'}</td>
+                <td className="p-3 text-muted-foreground">{result.title || '—'}</td>
+                <td className="p-3 text-muted-foreground">{result.word_count ?? '—'}</td>
+                <td className="p-3 text-muted-foreground">{result.aeo_score ?? '—'}</td>
+                <td className="p-3 text-muted-foreground">{result.status || '—'}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    ) : <p className="text-sm text-muted-foreground">No batch results were stored for this run.</p>
+  }
+
+  if (log.type === 'analytics') {
+    const health = payload.healthResult as HealthResult | undefined
+    const mentions = payload.mentionsResult as MentionsResult | undefined
+
+    return (
+      <div className="space-y-5">
+        {health && (
+          <section className="rounded-md border border-border/50 bg-background p-4">
+            <h4 className="font-semibold">Website health: {health.overall_score}/100</h4>
+            <div className="mt-3 grid gap-2 sm:grid-cols-2 lg:grid-cols-4">
+              {Object.entries(health.category_scores || {}).map(([key, value]) => (
+                <div key={key} className="rounded bg-muted/60 p-3">
+                  <p className="text-xs text-muted-foreground">{detailLabel(key)}</p>
+                  <p className="mt-1 font-semibold">{value}/100</p>
+                </div>
+              ))}
+            </div>
+            {Array.isArray(health.checks) && health.checks.length > 0 && (
+              <div className="mt-4 max-h-72 overflow-auto divide-y divide-border/50 border-t border-border/50">
+                {health.checks.map((check, index) => (
+                  <div key={`${check.name}-${index}`} className="flex items-center justify-between gap-4 py-2 text-sm">
+                    <span>{check.name}</span>
+                    <span className="text-muted-foreground">{check.status} · {check.score}</span>
+                  </div>
+                ))}
+              </div>
+            )}
+          </section>
+        )}
+        {mentions && (
+          <section className="rounded-md border border-border/50 bg-background p-4">
+            <h4 className="font-semibold">AI mentions: {mentions.total_mentions ?? 0}</h4>
+            {Array.isArray(mentions.platform_results) && mentions.platform_results.length > 0 && (
+              <div className="mt-3 grid gap-3 sm:grid-cols-2">
+                {mentions.platform_results.map((platform, index) => (
+                  <div key={`${platform.platform}-${index}`} className="rounded bg-muted/60 p-3">
+                    <p className="font-medium">{platform.platform}</p>
+                    <p className="mt-1 text-xs text-muted-foreground">
+                      {platform.found ? 'Mention found' : 'No mention found'}
+                    </p>
+                  </div>
+                ))}
+              </div>
+            )}
+          </section>
+        )}
+        {!health && !mentions && <p className="text-sm text-muted-foreground">No analytics details were stored for this run.</p>}
+      </div>
+    )
+  }
+
+  const fields = Object.entries(payload).filter(([, value]) => value !== undefined && value !== null && value !== '')
+  return fields.length > 0 ? (
+    <dl className="space-y-3">
+      {fields.map(([key, value]) => (
+        <div key={key}>
+          <dt className="text-xs font-medium uppercase tracking-wide text-muted-foreground">{detailLabel(key)}</dt>
+          <dd className="mt-1 whitespace-pre-wrap text-sm text-foreground">{detailValue(value)}</dd>
+        </div>
+      ))}
+    </dl>
+  ) : <p className="text-sm text-muted-foreground">No details were stored for this entry.</p>
+}
+
 export default function HistoryPage() {
   const [logs, setLogs] = useState<LogEntry[]>([])
   const [isLoading, setIsLoading] = useState(true)
+  const [expandedLogId, setExpandedLogId] = useState<string | null>(null)
 
   const fetchHistory = async () => {
     try {
@@ -515,6 +688,7 @@ export default function HistoryPage() {
         throw new Error(data.error || 'Failed to delete entry')
       }
       setLogs(prev => prev.filter(log => log.id !== id))
+      setExpandedLogId(current => current === id ? null : current)
       toast.success('Entry deleted')
     } catch (error) {
       toast.error(error instanceof Error ? error.message : 'Failed to delete entry')
@@ -586,6 +760,7 @@ export default function HistoryPage() {
               const mentionsResult = payload.mentionsResult
 
               const timestamp = (log as any).timestamp || (log as any).created_at
+              const isExpanded = expandedLogId === log.id
 
               return (
                 <div
@@ -725,6 +900,17 @@ export default function HistoryPage() {
 
                     {/* Actions */}
                     <div className="flex items-center gap-2">
+                      <Button
+                        variant="outline"
+                        size="sm"
+                        aria-expanded={isExpanded}
+                        aria-controls={`history-details-${log.id}`}
+                        onClick={() => setExpandedLogId(current => current === log.id ? null : log.id)}
+                        className="flex items-center gap-1"
+                      >
+                        {isExpanded ? 'Hide details' : 'View details'}
+                        <ChevronDown className={`h-4 w-4 transition-transform ${isExpanded ? 'rotate-180' : ''}`} />
+                      </Button>
                       {/* Keywords: dropdown with Excel and CSV */}
                       {log.type === 'keywords' && keywords && (
                         <div className="relative group">
@@ -816,11 +1002,20 @@ export default function HistoryPage() {
                         variant="ghost"
                         size="sm"
                         onClick={() => handleDelete(log.id)}
+                        aria-label="Delete history entry"
                       >
                         <Trash2 className="h-4 w-4" />
                       </Button>
                     </div>
                   </div>
+                  {isExpanded && (
+                    <div
+                      id={`history-details-${log.id}`}
+                      className="mt-4 border-t border-border/50 pt-4"
+                    >
+                      <HistoryDetails log={log} />
+                    </div>
+                  )}
                 </div>
               )
             })}
