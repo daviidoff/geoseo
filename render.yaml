@@ -1,0 +1,66 @@
+services:
+  # =============================================================================
+  # Service 1: Next.js Frontend
+  # =============================================================================
+  - type: web
+    name: hyperniche-frontend
+    runtime: node
+    plan: starter
+    buildCommand: npm ci && NODE_OPTIONS=--max-old-space-size=4096 npm run build
+    startCommand: npm start -- -p $PORT
+    healthCheckPath: /api/health
+    autoDeploy: true
+    envVars:
+      - key: NODE_VERSION
+        value: 20.18.0
+      - key: NODE_ENV
+        value: production
+      - key: NODE_OPTIONS
+        value: --max-old-space-size=4096
+      - key: NEXT_PUBLIC_DEV_MODE
+        value: false
+      # Backend URL - will be set after backend deploys
+      - key: PYTHON_BACKEND_URL
+        sync: false
+      # Supabase
+      - key: NEXT_PUBLIC_SUPABASE_URL
+        sync: false
+      - key: NEXT_PUBLIC_SUPABASE_ANON_KEY
+        sync: false
+      - key: SUPABASE_SERVICE_ROLE_KEY
+        sync: false
+      # Stripe
+      - key: STRIPE_SECRET_KEY
+        sync: false
+      - key: STRIPE_WEBHOOK_SECRET
+        sync: false
+      - key: NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY
+        sync: false  # =============================================================================
+  # Service 2: Python Backend (FastAPI)
+  # =============================================================================
+  - type: web
+    name: hyperniche-backend
+    runtime: python
+    plan: starter
+    rootDir: python-backend
+    buildCommand: pip install -r requirements.txt
+    startCommand: uvicorn api:app --host 0.0.0.0 --port $PORT
+    healthCheckPath: /health
+    autoDeploy: true
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.11.0
+      # Required: Gemini AI
+      - key: GEMINI_API_KEY
+        sync: false
+      # Required: SERP Analysis (Serper)
+      - key: SERPER_API_KEY
+        sync: false
+      # Required: Volume/Difficulty (DataForSEO)
+      - key: DATAFORSEO_LOGIN
+        sync: false
+      - key: DATAFORSEO_PASSWORD
+        sync: false
+      # CORS - set to frontend URL after deploy
+      - key: CORS_ORIGINS
+        sync: false

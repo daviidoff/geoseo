@@ -1,0 +1,29 @@
+# Render Blueprint for HyperNiche AI Backend
+# Deploy: Python FastAPI backend
+
+services:
+  - type: web
+    name: hyperniche-backend
+    runtime: python
+    region: frankfurt  # EU region, change if needed
+    plan: starter  # $7/month, upgrade for production
+    buildCommand: pip install -r requirements.txt
+    startCommand: uvicorn api:app --host 0.0.0.0 --port $PORT
+    envVars:
+      - key: GEMINI_API_KEY
+        sync: false  # Set manually in Render dashboard
+      - key: PYTHON_VERSION
+        value: 3.11.0
+      # Serper API for SERP analysis (featured snippets, PAA, AEO scoring)
+      - key: SERPER_API_KEY
+        sync: false
+      # DataForSEO API for keyword volume and difficulty
+      - key: DATAFORSEO_LOGIN
+        sync: false
+      - key: DATAFORSEO_PASSWORD
+        sync: false
+      # CORS origins for frontend
+      - key: CORS_ORIGINS
+        sync: false
+    healthCheckPath: /health
+    autoDeploy: true

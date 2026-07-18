@@ -1,0 +1,12 @@
+# Security Policy for HyperNiche AI
+# https://securitytxt.org/
+
+Contact: mailto:security@hyperniche.ai
+Expires: 2027-01-01T00:00:00.000Z
+Preferred-Languages: en
+Canonical: https://hyperniche.ai/.well-known/security.txt
+Policy: https://hyperniche.ai/security
+
+# We take security seriously. If you discover a vulnerability,
+# please report it responsibly via the contact above.
+# We aim to respond within 48 hours.

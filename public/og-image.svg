@@ -1,0 +1,55 @@
+<svg width="1200" height="630" viewBox="0 0 1200 630" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background -->
+  <rect width="1200" height="630" fill="#0d1117"/>
+  
+  <!-- Gradient overlay -->
+  <rect width="1200" height="630" fill="url(#bgGradient)" opacity="0.3"/>
+  
+  <!-- Logo -->
+  <g transform="translate(100, 180)">
+    <rect width="120" height="120" rx="24" fill="url(#logoGradient)"/>
+    <circle cx="60" cy="60" r="42" stroke="white" stroke-width="3" opacity="0.3"/>
+    <circle cx="60" cy="60" r="30" stroke="white" stroke-width="3" opacity="0.5"/>
+    <!-- HN lettermark -->
+    <g opacity="0.95">
+      <rect x="40" y="40" width="5" height="40" rx="2.5" fill="white"/>
+      <rect x="40" y="57.5" width="17" height="5" rx="2.5" fill="white"/>
+      <rect x="52" y="40" width="5" height="40" rx="2.5" fill="white"/>
+      <rect x="63" y="40" width="5" height="40" rx="2.5" fill="white"/>
+      <path d="M63 40 L80 80" stroke="white" stroke-width="5" stroke-linecap="round"/>
+      <rect x="75" y="40" width="5" height="40" rx="2.5" fill="white"/>
+    </g>
+  </g>
+
+  <!-- Title -->
+  <text x="250" y="270" font-family="system-ui, -apple-system, sans-serif" font-size="72" font-weight="700" fill="#c9d1d9">
+    HyperNiche AI
+  </text>
+
+  <!-- Subtitle -->
+  <text x="250" y="340" font-family="system-ui, -apple-system, sans-serif" font-size="32" font-weight="400" fill="#8b949e">
+    AI-Powered Niche Marketing Platform
+  </text>
+
+  <!-- Description -->
+  <text x="250" y="400" font-family="system-ui, -apple-system, sans-serif" font-size="24" font-weight="400" fill="#8b949e" opacity="0.8">
+    Keywords • Blogs • AEO Optimization • Analytics
+  </text>
+  
+  <!-- Decorative elements -->
+  <circle cx="1000" cy="150" r="3" fill="#10b981" opacity="0.6"/>
+  <circle cx="1050" cy="180" r="2" fill="#10b981" opacity="0.4"/>
+  <circle cx="1100" cy="200" r="2.5" fill="#10b981" opacity="0.5"/>
+  
+  <defs>
+    <linearGradient id="bgGradient" x1="0" y1="0" x2="1200" y2="630" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#8b5cf6" stop-opacity="0.15"/>
+      <stop offset="1" stop-color="#3b82f6" stop-opacity="0.08"/>
+    </linearGradient>
+    <linearGradient id="logoGradient" x1="0" y1="0" x2="120" y2="120" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#8b5cf6"/>
+      <stop offset="50%" stop-color="#6366f1"/>
+      <stop offset="100%" stop-color="#3b82f6"/>
+    </linearGradient>
+  </defs>
+</svg>

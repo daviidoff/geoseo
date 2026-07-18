@@ -1,0 +1,35 @@
+<svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Simplified favicon version -->
+  <rect width="32" height="32" rx="6" fill="url(#faviconGradient)"/>
+
+  <!-- Target rings representing "niche" -->
+  <circle cx="16" cy="16" r="11" stroke="white" stroke-width="1.2" opacity="0.4"/>
+  <circle cx="16" cy="16" r="7.5" stroke="white" stroke-width="1.2" opacity="0.6"/>
+
+  <!-- "HN" lettermark -->
+  <g opacity="0.95">
+    <!-- H -->
+    <rect x="10" y="10" width="1.5" height="12" rx="0.75" fill="white"/>
+    <rect x="10" y="15.25" width="5" height="1.5" rx="0.75" fill="white"/>
+    <rect x="13.5" y="10" width="1.5" height="12" rx="0.75" fill="white"/>
+
+    <!-- N -->
+    <rect x="17" y="10" width="1.5" height="12" rx="0.75" fill="white"/>
+    <path d="M17 10 L22 22" stroke="white" stroke-width="1.5" stroke-linecap="round"/>
+    <rect x="20.5" y="10" width="1.5" height="12" rx="0.75" fill="white"/>
+  </g>
+
+  <!-- AI nodes in corners -->
+  <circle cx="8" cy="8" r="1" fill="white" opacity="0.6"/>
+  <circle cx="24" cy="8" r="1" fill="white" opacity="0.6"/>
+  <circle cx="8" cy="24" r="1" fill="white" opacity="0.6"/>
+  <circle cx="24" cy="24" r="1" fill="white" opacity="0.6"/>
+
+  <defs>
+    <linearGradient id="faviconGradient" x1="0" y1="0" x2="32" y2="32" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#8b5cf6"/>
+      <stop offset="50%" stop-color="#6366f1"/>
+      <stop offset="100%" stop-color="#3b82f6"/>
+    </linearGradient>
+  </defs>
+</svg>

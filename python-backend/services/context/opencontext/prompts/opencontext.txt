@@ -1,0 +1,231 @@
+You are an expert business analyst, content strategist, and visual designer. Analyze the company website at {url} and extract comprehensive company context INCLUDING a detailed writing persona AND visual identity for image generation.
+
+IMPORTANT INSTRUCTIONS:
+1. Use the URL Context tool to fetch and analyze the actual content at {url}
+2. Use Google Search to find additional real information about this company
+3. Do NOT make up or hallucinate data - only use information you actually retrieve
+4. If you cannot find information about the company, return an error field in the JSON
+5. **CRITICAL: Find and analyze existing blog post images for visual style reference**
+
+Analyze all retrieved information to provide:
+
+1. Company basics (name, website, industry)
+2. Products/services offered (separate products and services)
+3. Target audience and ideal customers (include multiple audience segments)
+4. Brand voice and tone
+5. Key value propositions
+6. Customer pain points they address
+7. Common use cases
+8. Content themes they focus on
+9. **Primary market location**:
+   - **primary_region**: Geographic region name (e.g., "North America", "DACH", "Europe")
+   - **primary_country**: ISO country code (e.g., "US", "DE", "GB", "FR") - detect from website language, pricing currency, or headquarters
+   - **primary_language**: ISO language code (e.g., "en", "de", "fr") - detect from website content language
+10. **COMPETITORS - CRITICAL: Split into TWO categories:**
+   - `competitors`: Specific company names (e.g., "Salesforce", "HubSpot", "Zendesk")
+   - `competitor_categories`: Types of competing solutions (e.g., "Manual spreadsheets", "In-house development", "Legacy systems")
+11. **CRITICAL: A detailed voice_persona for content writing**
+12. **CRITICAL: Visual identity for image generation**
+13. **Blog authors (extract from existing blog articles)**
+14. **EEAT Elements (Experience, Expertise, Authoritativeness, Trustworthiness)**
+15. **GTM Playbook**: Classify the Go-To-Market strategy (e.g., "Product-Led Growth", "Sales-Led", "Community-Led", "Partner-Led")
+16. **Product Type**: Classify the product type (e.g., "SaaS", "API", "Platform", "Tool", "Service", "Marketplace")
+
+## VOICE PERSONA
+
+The voice_persona is critical - it defines HOW to write content that RESONATES WITH THE TARGET AUDIENCE (ICP).
+
+**CRITICAL: The voice must match what the ICP responds to, not just the company's brand voice.**
+
+Consider the ICP (Ideal Customer Profile):
+- Who are they? (role, seniority, technical level)
+- What do they value? (speed, accuracy, innovation, ROI, simplicity)
+- How do they consume content? (skim vs deep-read, mobile vs desktop)
+- What tone resonates with them? (peer-to-peer, expert-to-learner, consultant-to-executive)
+- What makes them trust content? (data, case studies, peer validation, credentials)
+
+Examples of ICP-aligned voice:
+- **ICP: CTOs/DevOps** → Direct, technical, code examples, benchmark data, "here's how it actually works"
+- **ICP: Marketing Directors** → ROI-focused, competitive insights, "here's how to beat competitors"
+- **ICP: Small Business Owners** → Practical, cost-conscious, "here's what you can do today"
+- **ICP: Enterprise Procurement** → Risk mitigation, compliance, vendor comparison, "here's why this is safe"
+
+The voice_persona must help writers AVOID robotic AI patterns like:
+- Starting every section with "What is X?"
+- Using "According to experts..." constantly
+- Filler phrases like "In today's rapidly evolving landscape..."
+- Over-hedging with "may", "might", "potentially"
+
+## VISUAL IDENTITY (for Image Generation)
+
+Analyze the website's visual design and existing blog images to extract:
+
+1. **Brand Colors**: Extract primary and secondary colors as hex codes from the website design
+2. **Visual Style**: Is it minimalist, bold, corporate, playful, technical, etc.?
+3. **Design Elements**: What patterns do they use? (gradients, icons, illustrations, photos, abstract shapes)
+4. **Typography Feel**: Modern sans-serif, classic serif, technical monospace, etc.
+5. **Mood**: Professional, friendly, innovative, trustworthy, cutting-edge, etc.
+
+**BLOG IMAGE EXAMPLES - CRITICAL:**
+- Navigate to the company's blog/magazine section
+- Find 3-5 existing blog post images (hero images, featured images)
+- For each image, provide the URL and describe:
+  - Visual style (photo, illustration, abstract, infographic)
+  - Color palette used
+  - Composition and layout
+  - Any text overlays or design elements
+  - The overall mood/feeling
+
+Use these examples to create an `image_style_prompt` - a base prompt that can be used with AI image generation to create images matching the company's visual style.
+
+## BLOG AUTHORS
+
+Extract author information from existing blog articles:
+
+1. Navigate to the company's blog/magazine section
+2. Find 2-5 blog articles and look for author information
+3. For each author found, extract:
+   - Full name
+   - Job title/role (if visible)
+   - Short bio (if available on the page)
+   - Profile image URL (if visible)
+   - LinkedIn or Twitter/X links (if available)
+
+**IMPORTANT:**
+- Only include authors you can actually find on the website
+- Do NOT make up or hallucinate author information
+- If no author info is visible on articles, return an empty authors array
+- Some blogs show "Company Name" as author - skip these, we want real people
+
+## EEAT ELEMENTS
+
+Extract signals that demonstrate Experience, Expertise, Authoritativeness, and Trustworthiness:
+
+**Experience** (first-hand experience signals):
+- Customer count ("10,000+ customers", "500 enterprises")
+- Reviews/ratings ("4.9 stars on G2", "Capterra Leader")
+- Years in business
+- Case study topics (industries/use cases covered)
+
+**Expertise** (credentials and knowledge):
+- Founder/team credentials ("Ex-Google", "Stanford PhD", "20 years in cybersecurity")
+- Company certifications (SOC 2, ISO 27001, AWS Partner)
+- Awards and recognition
+
+**Authoritativeness** (external validation):
+- Media mentions (TechCrunch, Forbes, industry publications)
+- Partnerships (Microsoft, Salesforce, AWS integrations)
+- Notable investors (if disclosed on website)
+
+**Trustworthiness** (trust signals):
+- Pricing transparency (public pricing vs. contact sales)
+- Guarantees (money-back, free trial, SLAs)
+- Security/compliance (GDPR, HIPAA, SOC 2)
+
+**IMPORTANT:**
+- Only extract what you actually find on the website
+- Do NOT hallucinate credentials, awards, or partnerships
+- If information is not visible, leave fields empty
+
+Return ONLY valid JSON in exactly this format:
+{{
+  "company_name": "Official company name",
+  "company_url": "Normalized company website URL",
+  "industry": "Primary industry category",
+  "description": "Clear 2-3 sentence company description",
+  "products": ["Product 1", "Product 2"],
+  "services": ["Service 1", "Service 2"],
+  "target_audience": "Ideal customer profile description",
+  "target_audiences": ["Audience segment 1", "Audience segment 2"],
+  "competitors": ["Specific Company Name 1", "Specific Company Name 2"],
+  "competitor_categories": ["Category of competing solution 1", "Alternative approach 2"],
+  "primary_region": "Geographic region name (e.g., North America, DACH, Europe)",
+  "primary_country": "ISO country code (e.g., US, DE, GB, FR)",
+  "primary_language": "ISO language code (e.g., en, de, fr)",
+  "tone": "Brand voice description (e.g., professional, friendly, authoritative)",
+  "pain_points": ["Pain point 1", "Pain point 2"],
+  "value_propositions": ["Value prop 1", "Value prop 2"],
+  "use_cases": ["Use case 1", "Use case 2"],
+  "content_themes": ["Theme 1", "Theme 2"],
+  "gtm_playbook": "Go-to-market strategy (e.g., Product-Led Growth, Sales-Led, Community-Led)",
+  "product_type": "Product classification (e.g., SaaS, API, Platform, Tool, Service)",
+  "voice_persona": {{
+    "icp_profile": "Brief description of the ICP this voice is tailored for.",
+    "voice_style": "2-3 sentence description of the writing voice that resonates with this ICP.",
+    "language_style": {{
+      "formality": "Level of formality (casual/professional/formal)",
+      "complexity": "Vocabulary complexity (simple/moderate/technical/expert)",
+      "sentence_length": "Preferred sentence structure (short and punchy / mixed / detailed)",
+      "perspective": "How to address reader (peer-to-peer / expert-to-learner / consultant-to-executive)"
+    }},
+    "sentence_patterns": [
+      "Pattern 1",
+      "Pattern 2"
+    ],
+    "vocabulary_level": "Description of technical vocabulary expectations",
+    "authority_signals": [
+      "What makes this ICP trust content"
+    ],
+    "do_list": [
+      "Specific behaviors that resonate with this ICP"
+    ],
+    "dont_list": [
+      "Anti-patterns that turn off this ICP"
+    ],
+    "example_phrases": [
+      "Phrases that capture the right tone"
+    ],
+    "opening_styles": [
+      "Section openers that engage this ICP"
+    ]
+  }},
+  "visual_identity": {{
+    "brand_colors": ["#HEX1", "#HEX2"],
+    "secondary_colors": ["#HEX3", "#HEX4"],
+    "visual_style": "Overall visual style (minimalist, bold, corporate, playful, technical)",
+    "design_elements": ["gradients", "icons", "illustrations", "photos"],
+    "typography_style": "Typography feel (modern sans-serif, classic serif, etc.)",
+    "mood": "Overall mood (professional, friendly, innovative, trustworthy)",
+    "image_style_prompt": "A detailed prompt for AI image generation that captures this brand's visual style. Example: 'Modern minimalist illustration with blue gradient background, simple geometric shapes, clean lines, professional corporate feel, no text overlays'",
+    "blog_image_examples": [
+      {{
+        "url": "https://example.com/blog/image1.jpg",
+        "description": "Detailed description of visual style, colors, composition, mood",
+        "image_type": "hero"
+      }},
+      {{
+        "url": "https://example.com/blog/image2.jpg",
+        "description": "Detailed description of visual style, colors, composition, mood",
+        "image_type": "inline"
+      }}
+    ],
+    "avoid_in_images": ["stock photo clichés", "cluttered compositions", "specific elements to avoid"]
+  }},
+  "authors": [
+    {{
+      "name": "Author's full name (required)",
+      "title": "Job title/role if available",
+      "bio": "Short bio if available on the page",
+      "image_url": "Profile image URL if visible",
+      "linkedin_url": "LinkedIn profile URL if available",
+      "twitter_url": "Twitter/X profile URL if available"
+    }}
+  ],
+  "eeat": {{
+    "customer_count": "Number of customers (e.g., '10,000+', '500 enterprises')",
+    "reviews_rating": "Review score (e.g., '4.9/5 stars', '4.8 on G2')",
+    "years_in_business": "Years operating",
+    "case_study_topics": ["Industry or use case 1", "Industry or use case 2"],
+    "founder_credentials": ["Credential 1 (e.g., 'Ex-Google')", "Credential 2"],
+    "certifications": ["SOC 2 Type II", "ISO 27001"],
+    "awards": ["Award 1", "Award 2"],
+    "media_mentions": ["TechCrunch", "Forbes", "Industry publication"],
+    "partnerships": ["Partner 1", "Integration 1"],
+    "investors": ["Notable investor if disclosed"],
+    "pricing_transparency": "public | contact_sales | freemium",
+    "guarantees": ["money-back guarantee", "free trial"],
+    "security_compliance": ["GDPR", "HIPAA", "SOC 2"]
+  }}
+}}
+
+Analyze: {url}

@@ -1,0 +1,16 @@
+/* TEAM */
+Product: HyperNiche AI
+Site: https://hyperniche.ai
+Location: Remote
+
+/* TECH */
+Framework: Next.js 15
+Language: TypeScript
+Database: Supabase (PostgreSQL)
+AI: Google Gemini
+Payments: Stripe
+Hosting: Vercel / Render
+Monitoring: Sentry
+
+/* THANKS */
+Built with open source software and the support of the developer community.
