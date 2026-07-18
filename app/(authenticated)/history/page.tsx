@@ -77,6 +77,23 @@ const detailValue = (value: unknown) => {
   return String(value ?? '')
 }
 
+const sanitizeHistoryHtml = (html: string) => {
+  let sanitized = html.replace(/<script[^>]*>[\s\S]*?<\/script>/gi, '')
+  sanitized = sanitized.replace(/\s*on\w+\s*=\s*"[^"]*"/gi, '')
+  sanitized = sanitized.replace(/\s*on\w+\s*=\s*'[^']*'/gi, '')
+  sanitized = sanitized.replace(/href\s*=\s*["']javascript:[^"']*["']/gi, 'href="#"')
+  sanitized = sanitized.replace(/src\s*=\s*["']javascript:[^"']*["']/gi, 'src=""')
+  sanitized = sanitized.replace(/<iframe[^>]*>[\s\S]*?<\/iframe>/gi, '')
+  sanitized = sanitized.replace(/<iframe[^>]*\/>/gi, '')
+  sanitized = sanitized.replace(/<head[^>]*>[\s\S]*?<\/head>/gi, '')
+  sanitized = sanitized.replace(/<!DOCTYPE[^>]*>/gi, '')
+  sanitized = sanitized.replace(/<\/?html[^>]*>/gi, '')
+  sanitized = sanitized.replace(/<\/?body[^>]*>/gi, '')
+  sanitized = sanitized.replace(/\sstyle="[^"]*"/gi, '')
+  sanitized = sanitized.replace(/\s(?:bgcolor|color|border)="[^"]*"/gi, '')
+  return sanitized
+}
+
 function HistoryDetails({ log }: { log: LogEntry }) {
   const payload = log.payload || {}
 
@@ -135,11 +152,21 @@ function HistoryDetails({ log }: { log: LogEntry }) {
   }
 
   if (log.type === 'blog' || log.type === 'refresh') {
-    return payload.content ? (
+    const content = String(payload.content || '')
+    const containsHtml = /<([a-z][\w-]*)\b[^>]*>/i.test(content)
+
+    return content ? (
       <article className="max-h-[36rem] overflow-auto rounded-md border border-border/50 bg-background p-5">
         <h4 className="text-lg font-semibold">{payload.title || payload.keyword || 'Generated article'}</h4>
         {payload.keyword && <p className="mt-1 text-xs text-muted-foreground">Keyword: {payload.keyword}</p>}
-        <div className="mt-4 whitespace-pre-wrap text-sm leading-6 text-foreground">{payload.content}</div>
+        {containsHtml ? (
+          <div
+            className="mt-5 text-sm leading-7 text-foreground [&_h1]:mb-4 [&_h1]:text-2xl [&_h1]:font-bold [&_h2]:mb-3 [&_h2]:mt-7 [&_h2]:text-xl [&_h2]:font-semibold [&_h3]:mb-2 [&_h3]:mt-5 [&_h3]:text-lg [&_h3]:font-semibold [&_p]:my-3 [&_ul]:my-3 [&_ul]:list-disc [&_ul]:pl-6 [&_ol]:my-3 [&_ol]:list-decimal [&_ol]:pl-6 [&_a]:text-primary [&_a]:underline [&_table]:my-5 [&_table]:w-full [&_table]:border-collapse [&_th]:border [&_th]:border-border [&_th]:bg-muted [&_th]:p-2 [&_td]:border [&_td]:border-border [&_td]:p-2 [&_img]:my-4 [&_img]:max-w-full"
+            dangerouslySetInnerHTML={{ __html: sanitizeHistoryHtml(content) }}
+          />
+        ) : (
+          <div className="mt-4 whitespace-pre-wrap text-sm leading-6 text-foreground">{content}</div>
+        )}
       </article>
     ) : <p className="text-sm text-muted-foreground">No article content was stored for this run.</p>
   }
