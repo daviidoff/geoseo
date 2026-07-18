@@ -27,15 +27,25 @@ interface HealthResult {
 }
 
 interface MentionsResult {
-  company_name: string
-  total_mentions: number
-  platform_results: Array<{
+  company_name?: string
+  companyName?: string
+  total_mentions?: number
+  mentions?: number
+  visibility?: number
+  band?: string
+  platform_results?: Array<{
     platform: string
     found: boolean
     mentions: Array<{
       query: string
       mentioned: boolean
     }>
+  }>
+  platform_stats?: Record<string, {
+    mentions: number
+    quality_score: number
+    responses: number
+    errors: number
   }>
 }
 
@@ -167,6 +177,7 @@ function HistoryDetails({ log }: { log: LogEntry }) {
   if (log.type === 'analytics') {
     const health = payload.healthResult as HealthResult | undefined
     const mentions = payload.mentionsResult as MentionsResult | undefined
+    const mentionCount = mentions?.total_mentions ?? mentions?.mentions ?? 0
 
     return (
       <div className="space-y-5">
@@ -195,7 +206,14 @@ function HistoryDetails({ log }: { log: LogEntry }) {
         )}
         {mentions && (
           <section className="rounded-md border border-border/50 bg-background p-4">
-            <h4 className="font-semibold">AI mentions: {mentions.total_mentions ?? 0}</h4>
+            <h4 className="font-semibold">AI mentions: {mentionCount}</h4>
+            {(mentions.visibility !== undefined || mentions.band) && (
+              <p className="mt-1 text-sm text-muted-foreground">
+                {mentions.visibility !== undefined ? `${mentions.visibility}% visibility` : ''}
+                {mentions.visibility !== undefined && mentions.band ? ' · ' : ''}
+                {mentions.band || ''}
+              </p>
+            )}
             {Array.isArray(mentions.platform_results) && mentions.platform_results.length > 0 && (
               <div className="mt-3 grid gap-3 sm:grid-cols-2">
                 {mentions.platform_results.map((platform, index) => (
@@ -203,6 +221,18 @@ function HistoryDetails({ log }: { log: LogEntry }) {
                     <p className="font-medium">{platform.platform}</p>
                     <p className="mt-1 text-xs text-muted-foreground">
                       {platform.found ? 'Mention found' : 'No mention found'}
+                    </p>
+                  </div>
+                ))}
+              </div>
+            )}
+            {mentions.platform_stats && Object.keys(mentions.platform_stats).length > 0 && (
+              <div className="mt-3 grid gap-3 sm:grid-cols-2">
+                {Object.entries(mentions.platform_stats).map(([platform, stats]) => (
+                  <div key={platform} className="rounded bg-muted/60 p-3">
+                    <p className="font-medium">{platform}</p>
+                    <p className="mt-1 text-xs text-muted-foreground">
+                      {stats.mentions} mentions · {stats.responses} responses · quality {stats.quality_score}
                     </p>
                   </div>
                 ))}
